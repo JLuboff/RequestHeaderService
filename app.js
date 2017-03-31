@@ -1,0 +1,20 @@
+var express = require("express");
+var port = process.env.PORT || 8080;
+var resObj = {"IP Address" : null, "Language" : null, "Software" : null};
+var app = express();
+
+app.get("/api/whoami", function(req, res){
+    "use strict";
+    let lang = req.headers["accept-language"];
+    let soft = req.headers["user-agent"];
+
+    resObj["IP Address"] = req.headers["x-forwarded-for"];
+    resObj["Language"] = lang.slice(0, lang.indexOf(","));
+    resObj["Software"] = soft.slice(soft.indexOf("(") +1, soft.indexOf(")"));
+    res.send(resObj);
+});
+
+
+app.listen(port, function(){
+    console.log("Service listening on port: " + port);
+});

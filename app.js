@@ -14,6 +14,9 @@ app.get("/api/whoami", function(req, res){
     res.send(resObj);
 });
 
+app.get(/\/(api)?/, function(req, res){
+    res.send("Please redirect to: <a href='/api/whoami'>/api/whoami</a> to view results");
+});
 
 app.listen(port, function(){
     console.log("Service listening on port: " + port);

@@ -14,8 +14,12 @@ app.get("/api/whoami", function(req, res){
     res.send(resObj);
 });
 
-app.get(/\/(api)?/, function(req, res){
+app.get(/(^\/$|\/api)/, function(req, res){
     res.send("Please redirect to: <a href='/api/whoami'>/api/whoami</a> to view results");
+});
+
+app.get("*", function(req, res){
+    res.send("404: Page not found");
 });
 
 app.listen(port, function(){
